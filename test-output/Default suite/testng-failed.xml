@@ -5,7 +5,7 @@
     <classes>
       <class name="api.test.UserTest">
         <methods>
-          <include name="testdeleteUserByName"/>
+          <include name="testPostUser"/>
           <include name="setUpData"/>
         </methods>
       </class> <!-- api.test.UserTest -->

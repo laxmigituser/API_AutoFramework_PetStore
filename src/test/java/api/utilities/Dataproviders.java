@@ -6,15 +6,15 @@ import org.testng.annotations.DataProvider;
 
 public class Dataproviders {
 	@DataProvider(name = "Data")
-	public String [][] getAllData() throws IOException{
+	public String [][] getAllUserData() throws IOException{
 		String path=System.getProperty("user.dir")+"//src//test//resources//data//UserData.xlsx";
 		XLUtility xl=new XLUtility(path);
-		int rowNum=xl.getRowCount("Sheet1");
-		int colCount=xl.getCellCount("Sheet1", 1);
+		int rowNum=xl.getRowCount("User");
+		int colCount=xl.getCellCount("User", 1);
 		String apiData[][]=new String [rowNum][colCount];
 		for(int i=1;i<=rowNum;i++) {
 			for(int j=0;j<colCount;j++) {
-				apiData[i-1][j]=xl.getCellData("Sheet1", i, j);
+				apiData[i-1][j]=xl.getCellData("User", i, j);
 			}
 		}
 		return apiData;
@@ -24,11 +24,13 @@ public class Dataproviders {
 	public String[] getUserNames() throws IOException {
 		String path=System.getProperty("user.dir")+"//src//test//resources//data//UserData.xlsx";
 		XLUtility xl=new XLUtility(path);
-		int rowNum=xl.getRowCount("Sheet1");
+		int rowNum=xl.getRowCount("User");
 		String apiData[] = new String [rowNum];
 		for(int i=1;i<=rowNum;i++) {
 			apiData[i-1] = xl.getCellData("Sheet1", i, 1);
 		}
 		return apiData;
 	}
+	
+	
 }

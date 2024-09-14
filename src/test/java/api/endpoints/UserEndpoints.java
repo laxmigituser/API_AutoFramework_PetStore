@@ -1,21 +1,29 @@
 package api.endpoints;
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
 
+import static io.restassured.RestAssured.*;
+
+import java.util.List;
+import java.util.ResourceBundle;
 import api.payload.User;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-//To perform CRUD operation on User API
+
 public class UserEndpoints {
 	
+	public static ResourceBundle getUrl() {
+		ResourceBundle routes = ResourceBundle.getBundle("routes");//load the routes.properties file
+		return routes;		
+	}
+	
 	public static Response createUser(User user) {
+		
+		String post_url = getUrl().getString("post_url");
 		Response response = given()
 								.contentType(ContentType.JSON)
 								.accept(ContentType.JSON)
 								.body(user)
 							.when()
-								.post(Routes.post_url);
+								.post(post_url);
 		return response;
 	}
 	
@@ -23,7 +31,7 @@ public class UserEndpoints {
 		Response response = given()
 								.pathParam("username", username)
 							.when()
-								.get(Routes.get_url);
+								.get(getUrl().getString("get_url"));
 		return response;
 	}
 	
@@ -34,7 +42,7 @@ public class UserEndpoints {
 								.pathParam("username", username)
 								.body(user)
 							.when()
-								.put(Routes.update_url);
+								.put(getUrl().getString("update_url"));
 		return response;
 	}
 	
@@ -42,7 +50,19 @@ public class UserEndpoints {
 		Response response = given()
 								.pathParam("username", username)
 							.when()
-								.get(Routes.delete_url);
+								.delete(getUrl().getString("delete_url"));
+		return response;
+	}
+	
+	public static Response createUserWithList(List<User> user) {
+		
+		String post_url_list = getUrl().getString("post_url_list");
+		Response response = given()
+								.contentType(ContentType.JSON)
+								.accept(ContentType.JSON)
+								.body(user)
+							.when()
+								.post(post_url_list);
 		return response;
 	}
 }
